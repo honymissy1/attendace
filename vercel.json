@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "Church-Attendance",
+    "name": "church-attendance",
     "builds": [
        { "src": "index.js", "use": "@vercel/node" }
     ],
