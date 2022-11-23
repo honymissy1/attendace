@@ -36,7 +36,7 @@ app.use('/cell', cellRoute)
 
 // routers
 app.get("/", (req, res) => {
-  res.render("login");
+  res.send("login");
 });
 
 
