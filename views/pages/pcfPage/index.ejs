@@ -1,0 +1,54 @@
+<%-include("./partials/header")-%>
+
+ <body style="height: 110vh">
+  <%-include("./partials/nav")-%>
+
+  <div style="display: flex;">
+    <div>
+      <%-include("./partials/sidenav")-%>
+    </div>
+        <div class="align-top p-5 w-full mx-auto md:w-1/3" style="margin-top: 100px;">
+        <form action="/cellDatabase" method="POST">
+          <label for="service" class="block mb-2 text-sm font-medium dark:text-gray-400">Select Meeting</label>
+          <select style="margin-bottom: 10px" name="service" id="service" class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option name="service" value="Sunday Service">Sunday Service</option>
+            <option name="service" value="Tuesday Leader's Meeting">Tuesday Leader's Meeting</option>
+            <option name="service" value="Wednesday Launch Hour / Evening">Wednesday Launch Hour / Evening</option>
+            <option name="service" value="Friday Prayer Meeting">Friday Prayer Meeting</option>
+          </select>
+
+
+          <div class="relative mb-4 lg:h-2/3">
+              <label for="date" class="block mb-2 text-sm font-medium dark:text-gray-400">Date</label>
+              <input type="date" id="date" name="date" class="my-5 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+
+          <div class="relative mb-4 lg:h-2/3">
+            <label for="date" class="block mb-2 text-sm font-medium dark:text-gray-400">Details</label>
+            <input type="details" id="details" name="details" class="h-20 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          </div>
+  
+      
+          <button type="submit" class="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create Meeting</button>
+        </form>
+    </div>
+  </div>
+
+
+    <!-- <form action="/c" method="post"> -->
+      <!-- <label for="check">User</label>
+      <input type="checkbox" name="check" value="wind1">
+      <label for="check">User</label>
+      <input type="checkbox" name="check" value="wind2">
+      <label for="check">User</label>
+      <input type="checkbox" name="check" value="wind3">
+      <label for="check">User</label>
+      <input type="checkbox" name="check" value="wind4">
+      <label for="check">User</label>
+      <input type="checkbox" name="check" value="wind5">
+      <input type="submit" value="Send">
+    </form> -->
+</body>
+
+
+ 
