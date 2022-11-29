@@ -24,10 +24,8 @@ app.use(bodyParser.json())
   console.log('Connect');
  })
 
-
-app.use(express.static("public"));
+app.use(express.static('public'));
 app.set("view engine", "ejs");
-
 
 
 // ...............Routessss.......................
@@ -36,32 +34,30 @@ app.use('/cell', cellRoute)
 
 // routers
 app.get("/", (req, res) => {
-  res.send("login");
+  res.send('login');
 });
-
-
 
 app.get("/pcf", (req, res) => {
   res.render("pages/pcfPage/");
 });
 
-app.get("/attendance", (req, res) => {
+app.get("/pcf/attendance", (req, res) => {
   const userAttendance = ''; 
   res.render("pages/pcfPage/attendance", { userAttendance});
+});
+
+app.get("/pcf/add", (req, res) => {
+  res.render("pages/pcfPage/addmembers");
 });
 
 
 
 app.get("/attendancelist", (req, res) => {
- 
-  let userAttendance = []
    const getDate = req.query.date.toString();
   user.find({ service: {$elemMatch: { date: getDate}}},
     {name: 1, cell: 1, position: 1, "service.$" : 1}) 
   .then(response =>{
-    userAttendance = response;
-    console.log(userAttendance);
-    res.render("pages/pcfPage/attendance", {createMeeting: false, userAttendance});
+    res.render("pages/pcfPage/attendance", {createMeeting: false, userAttendance: response});
   })
 });
 
@@ -75,7 +71,7 @@ app.post("/cellDatabase", (req, res) => {
                                         comment: ''       
                                    }} })
   .then(response =>{
-    res.render("pages/pcfPage/attendance", {createMeeting: true, userAttendance});
+    res.render("pages/pcfPage/attendance", {userAttendance: response});
   })
 });
 
@@ -85,8 +81,6 @@ app.get('/meetings', (req, res) =>{
       res.send(response)
    })
 })
-
-
 
 // Pcf dashboard ends here
 // ...............................................

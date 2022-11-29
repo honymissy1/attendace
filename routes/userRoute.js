@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const user = require('../models/users')
 
 router.use(express.static("public"));
 router.get("/", (req, res) => {
-  res.render("pages/pcfPage/users", {users: 'List Of all users from db that we got'});
-});
-
-router.get("/:cell", (req, res) => {
-  res.render("pages/cellPage/index", {users: 'For cell members'});
+  user.find().sort({name: 1})
+  .then(response =>{
+    console.log(response);
+    res.render("pages/pcfPage/users", {users: response});
+  })
 });
 
 

@@ -19,20 +19,57 @@
 .side{
   width: 200px;
   height: 100%;
-  background-color: rgba(22, 25, 27, 0.747);
+  background: black;
+  background-image: url('/navbackground.jfif');
   position: relative;
- 
-
 }
 
 .side ul li{
   width: 100%;
   /* border: 1px solid; */
-  font-size: 1.2rem;
+  font-size: 1rem;
   border-bottom: 1px solid white;
-  padding: 10px;
+  padding: 20px 10px;
   color: white;
  
+}
+
+
+.date{
+  width: 500px
+}
+
+.bar{
+  margin-left: 15px;
+  display: none;
+}
+
+@media screen and (max-width: 750px) {
+  .bar{
+    margin-left: 0px;
+    display: block;
+  }
+  .side{
+    position: absolute;
+    z-index: 4;
+    top:0;
+    transform: translateX(-100%);
+    transition: .5s
+  }
+
+  .date{
+    width: 100%;
+  }
+
+  .overlay{
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.328);
+  }
 }
 
 /* My Style */
