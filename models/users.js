@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
     email: String,
     cell: String,
     position: String,
+    address: String,
     service: [{
         meeting: String,
         date: String,

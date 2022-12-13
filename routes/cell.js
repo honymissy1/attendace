@@ -1,53 +1,63 @@
 const express = require('express');
 const router = express.Router();
-const user = require('../models/users')
+const user = require('../models/users');
+const cellAuth = require('../middleware/cellAuth')
 
 router.use(express.static("public"));
 
-router.get("/dashboard", (req, res) => {
-  const cell = "Dunamis";
+router.get("/dashboard", cellAuth, (req, res) => {
+  console.log(req.user);
+  const cell = req.user.cell;
   user.find({cell: cell, "service.present": false}, {name: 1, position: 1, email: 1, phone: 1, service: {$slice: -1}})
    .then(response =>{
      res.render("pages/cellPage/", {message: '', users: response, cell: 'Dunamis'});
    })
 });
 
-router.get("/addmembers", (req, res) => {
-  res.render('pages/cellPage/addmembers', {cell: 'Dunamis', message: ''})
+router.get("/addmembers", cellAuth, (req, res) => {
+  res.render('pages/cellPage/addmembers', {cell: req.user.cell, message: ''})
 });
 
 
-router.get("/members", (req, res) => {
-  const cell = req.query.cell;
+router.get("/members", cellAuth, (req, res) => {
+  const cell = req.user.cell;
   user.find({cell: cell}, {name: 1, position: 1,email: 1, phone: 1, service: {$slice: -1}})
   .then(response =>{
-    res.render('pages/cellPage/members', { users: response, cell: 'Dunamis'})
+    res.render('pages/cellPage/members', { users: response, cell})
   })
 });
 
-router.post("/addmembers", (req, res) => {  
+router.post("/addmembers", cellAuth, (req, res) => {  
   user.create({
     name: req.body.name,
     phone: req.body.number,
     email: req.body.email,
+    address: req.body.address,
     cell: req.body.cell,
     position: req.body.role,
   }).then(response =>{
     console.log(response);
-    res.render('pages/cellPage/addmembers', {cell: 'Dunamis',message: 'Added Successfully'})
+    res.render('pages/cellPage/addmembers', {cell: req.user.cell,message: 'Added Successfully'})
   })
 });
 
-router.post("/submitattendance", (req, res) => {
-  const bodys = req.body;
-
-  user.updateMany({_id: bodys.present},
-   {$set: {"service.$[].present": true}}, 
+router.post("/submitattendance/:id", (req, res) => {
+  console.log('ent here');
+  console.log(req.body);
+  user.updateOne({_id: req.params.id},
+   {$set: {"service.$[].present": req.body.toggle, "service.$[].comment": req.body.reason}}, 
    {multi: true})
   .then(response => {
     console.log(response);
-    res.render("pages/cellPage/submitsuccess");
+    res.redirect('/cell/dashboard')
   })
+  
+  
 });
+
+
+
+
+
 
 module.exports = router
