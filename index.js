@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const auth = require("./middleware/auth");
 var cookieParser = require('cookie-parser');
 const cellAdmin = require('./models/celladmin');
-
+const cellAuth = require('./middleware/cellAuth')
  
 
 const app = express();
@@ -29,10 +29,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 app.use(cookieParser())
 
- mongoose.connect(`mongodb+srv://honymissy:honymissy1@cluster0.q6yjv.mongodb.net/Service_Attendance?retryWrites=true`)
- .then(response =>{
-  console.log('Connect');
- })
+//  mongoose.connect(`mongodb+srv://honymissy:honymissy1@cluster0.q6yjv.mongodb.net/Service_Attendance?retryWrites=true`)
+//  .then(response =>{
+//   console.log('Connect');
+//  })
 
 app.use(express.static('public'));
 app.set("view engine", "ejs");
@@ -44,6 +44,9 @@ app.use('/cell', cellRoute)
 app.use('/pcf', pcfRoute)
 // routers
 
+app.get('/', cellAuth, (req, res) =>{
+  res.redirect('/cell/dashboard')
+})
 
 app.get("/pccflogin", (req, res) => {
   res.render('login', {err: ''});
